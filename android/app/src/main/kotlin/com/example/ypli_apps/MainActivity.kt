@@ -1,0 +1,6 @@
+package com.example.ypli_apps
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
