@@ -70,24 +70,24 @@ class CustomInputText extends StatefulWidget {
 class CustomInputTextState extends State<CustomInputText> {
   @override
   void initState() {
-    textListener();
+   // textListener();
     super.initState();
   }
 
-  void textListener() {
-    widget.controllerName.addListener(() {
-      if (widget.isHandOver) {
-        widget.onChangeText();
-      }
-      if (widget.controllerName.text != '') {
-        widget.onChangeText();
-      }
-    });
-  }
+  // void textListener() {
+  //   widget.controllerName.addListener(() {
+  //     if (widget.isHandOver) {
+  //       widget.onChangeText();
+  //     }
+  //     if (widget.controllerName.text != '') {
+  //       widget.onChangeText();
+  //     }
+  //   });
+  // }
 
   @override
   void dispose() {
-    widget.controllerName.removeListener(textListener);
+   // widget.controllerName.removeListener(textListener);
     // widget.controllerName.dispose();
     super.dispose();
   }
@@ -152,6 +152,11 @@ class CustomInputTextState extends State<CustomInputText> {
                       mantissaLength: 0,
                     ),
                 ],
+                onChanged: (text) {
+                  if (widget.onChangeText != null) {
+                    widget.onChangeText(text);
+                  }
+                },
                 controller: widget.controllerName,
                 onTap: () {
                   widget.onTap();

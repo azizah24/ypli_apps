@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ypli_apps/auth/login_page.dart';
+import 'package:ypli_apps/auth/register_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(  MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -14,6 +15,28 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
+        initialRoute: '/loginPage',
+        routes: routes,
+        onGenerateRoute: _generateRoute,
         home: LoginPage());
+  }
+
+    dynamic routes = {
+     
+    '/loginPage': (BuildContext context) => const LoginPage(),
+  };
+
+  Route  _generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      // FIRST PAGE
+     
+      case '/loginPage':
+        return MaterialPageRoute(builder: (context) => const LoginPage());
+      case '/registerPage':
+        return MaterialPageRoute(
+            builder: (context) => RegisterPage());
+      default:
+        return MaterialPageRoute(builder: (context) => const LoginPage());
+    }
   }
 }

@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:ypli_apps/utils/custom_input_textfield.dart';
 import 'package:ypli_apps/utils/theme.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   bool showPassword = true;
   bool valueCheck = false;
+  dynamic validationPassword = [];
+  final passwordfieldkey = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +39,11 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Center(
                 child: Text(
-                  'Hi, welcome back',
-                  style: blackBold.copyWith(color: primary600, fontSize: 36),
+                  'Create Your Account',
+                  style: blackBold.copyWith(
+                    color: primary600,
+                    fontSize: 24,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -47,8 +52,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Center(
                 child: Text(
-                  'Login with your account',
-                  style: blackReg400,
+                  'Pastikan informasi yang anda berikan benar, agar kami mudah menginformasikan anda.',
+                  style: blackReg400.copyWith(fontSize: 16),
+                  textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(
@@ -65,7 +71,9 @@ class _LoginPageState extends State<LoginPage> {
                   enabled: true,
                   onChangeText: () {},
                   onTap: () {},
-                  onEditingComplete: () {}),
+                  onEditingComplete: (v) {
+                    print(v);
+                  }),
               SizedBox(
                 height: 20,
               ),
@@ -75,29 +83,57 @@ class _LoginPageState extends State<LoginPage> {
                 style: blackBold.copyWith(fontSize: 16),
               ),
               CustomInputText(
-                  controllerName: password,
-                  placeholder: 'Password',
-                  enabled: true,
-                  isObsecure: showPassword,
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      setState(() {
-                        showPassword = !showPassword;
-                      });
-                    },
-                    child: showPassword
-                        ? Icon(
-                            Icons.visibility_off,
-                            color: primary500,
-                          )
-                        : Icon(
-                            Icons.remove_red_eye,
-                            color: primary500,
-                          ),
-                  ),
-                  onChangeText: () {},
-                  onTap: () {},
-                  onEditingComplete: () {}),
+                key: passwordfieldkey,
+                controllerName: password,
+                placeholder: 'Password',
+                enabled: true,
+                isObsecure: showPassword,
+                suffixIcon: InkWell(
+                  onTap: () {
+                    setState(() {
+                      showPassword = !showPassword;
+                    });
+                  },
+                  child: showPassword
+                      ? Icon(
+                          Icons.visibility_off,
+                          color: primary500,
+                        )
+                      : Icon(
+                          Icons.remove_red_eye,
+                          color: primary500,
+                        ),
+                ),
+                onChangeText: (v) {
+                  print(v);
+                  if (RegExp(".*[0-9].*").hasMatch(v ?? '')) {
+                    setState(() {
+                      validationPassword = [
+                        {'title': 'angka'}
+                      ];
+                    });
+                    print(validationPassword);
+                  }
+                  if (RegExp('.*[a-z].*').hasMatch(v ?? '')) {
+                    setState(() {
+                      if (validationPassword.isNotEmpty) {
+                        validationPassword.add({'title': 'huruf'});
+                      } else {
+                        validationPassword = [
+                          {'title': 'huruf'}
+                        ];
+                      }
+                    });
+                    print(validationPassword);
+                  }
+                },
+                onTap: () {},
+                onEditingComplete: (v) {},
+                validator: (v) {},
+              ),
+              SizedBox(
+                height: 20,
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -145,7 +181,9 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  print(validationPassword);
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(16),
@@ -195,11 +233,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20,
               ),
               InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    '/registerPage',
-                  );
-                },
+                onTap: () {},
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(16),
