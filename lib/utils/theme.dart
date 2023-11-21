@@ -23,6 +23,10 @@ Color secondary700 = const Color(0xff29858B);
 Color secondary800 = const Color(0xff1B6469);
 Color secondary900 = const Color(0xff0F4447);
 
+Color green400 = const Color(0xff00A76A);
+Color green200 = const Color(0xffB0F5DC);
+Color green600 = const Color(0xff00A76A);
+
 Color red300 = const Color(0xff661624);
 Color red200 = const Color(0xffff6681);
 Color red100 = const Color(0xffffeff2);
@@ -48,79 +52,40 @@ TextStyle blackBold = GoogleFonts.inter(
 );
 
 TextStyle blackMed = GoogleFonts.inter(
-  fontWeight: FontWeight.w500,
-  color: neutral500,
-  fontSize: 14
-);
+    fontWeight: FontWeight.w500, color: neutral500, fontSize: 14);
 
 TextStyle blackReg500 = GoogleFonts.inter(
-  fontWeight: FontWeight.w400,
-  color: neutral500,
-  fontSize: 14
-);
+    fontWeight: FontWeight.w400, color: neutral500, fontSize: 14);
 
 TextStyle blackReg400 = GoogleFonts.inter(
-  fontWeight: FontWeight.w400,
-  color: neutral400,
-  fontSize: 12
-);
+    fontWeight: FontWeight.w400, color: neutral400, fontSize: 12);
 
 TextStyle blackMed600 = GoogleFonts.inter(
-  fontWeight: FontWeight.w500,
-  color: neutral600,
-  fontSize: 14
-);
+    fontWeight: FontWeight.w500, color: neutral600, fontSize: 14);
 
 TextStyle blacklight500 = GoogleFonts.inter(
-  fontWeight: FontWeight.w300,
-  color: neutral500,
-  fontSize: 12
-);
+    fontWeight: FontWeight.w300, color: neutral500, fontSize: 12);
 
 TextStyle blacklight400 = GoogleFonts.inter(
-  fontWeight: FontWeight.w300,
-  color: neutral400,
-  fontSize: 10
-);
+    fontWeight: FontWeight.w300, color: neutral400, fontSize: 10);
 
 TextStyle blue800Light = GoogleFonts.inter(
-  fontWeight: FontWeight.w300,
-  color: primary800,
-  fontSize: 10
-);
+    fontWeight: FontWeight.w300, color: primary800, fontSize: 10);
 
 TextStyle blue500Bold = GoogleFonts.inter(
-  fontWeight: FontWeight.w700,
-  color: primary500,
-  fontSize: 24
-);
+    fontWeight: FontWeight.w700, color: primary500, fontSize: 24);
 
 TextStyle blue500Med = GoogleFonts.inter(
-  fontWeight: FontWeight.w500,
-  color: primary500,
-  fontSize: 14
-);
+    fontWeight: FontWeight.w500, color: primary500, fontSize: 14);
 
 TextStyle blue400Med = GoogleFonts.inter(
-  fontWeight: FontWeight.w500,
-  color: primary400,
-  fontSize: 14
-);
+    fontWeight: FontWeight.w500, color: primary400, fontSize: 14);
 
 TextStyle whiteSemi = GoogleFonts.inter(
-  fontWeight: FontWeight.w600,
-  color: neutral100,
-  fontSize: 12
-);
+    fontWeight: FontWeight.w600, color: neutral100, fontSize: 12);
 
-TextStyle red300Light = GoogleFonts.inter(
-  fontWeight: FontWeight.w300,
-  color: red300,
-  fontSize: 10
-);
+TextStyle red300Light =
+    GoogleFonts.inter(fontWeight: FontWeight.w300, color: red300, fontSize: 10);
 
 TextStyle yellow300Light = GoogleFonts.inter(
-  fontWeight: FontWeight.w300,
-  color: yellow300,
-  fontSize: 10
-);
+    fontWeight: FontWeight.w300, color: yellow300, fontSize: 10);

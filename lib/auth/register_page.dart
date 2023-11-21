@@ -10,12 +10,71 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController emailCtrl = TextEditingController();
+  TextEditingController passwordCtrl = TextEditingController();
+  TextEditingController nameCtrl = TextEditingController();
+  TextEditingController confirmPassCtrl = TextEditingController();
   bool showPassword = true;
   bool valueCheck = false;
-  dynamic validationPassword = [];
+  List validationPassword = [];
   final passwordfieldkey = GlobalKey<FormFieldState>();
+  bool numberValid = false, uppCase = false, lowerCase = false, length8 = false;
+  List gender = [
+    {"title": "Laki - laki", "value": 1},
+    {"title": "Perempuan", "value": 2}
+  ];
+
+  String? selectedValue;
+  void radioTileOnChanged(String? val) {
+    setState(() {
+      selectedValue = val;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    validationPassword = [
+      {
+        'title': 'Minimal 8 karakter',
+        'value': length8,
+      },
+      {
+        'title': 'Satu huruf besar',
+        'value': uppCase,
+      },
+      {
+        'title': 'Satu huruf kecil',
+        'value': lowerCase,
+      },
+      {
+        'title': 'Satu angka',
+        'value': numberValid,
+      },
+    ];
+  }
+
+  validationPasswords() {
+    validationPassword = [
+      {
+        'title': 'Minimal 8 karakter',
+        'value': length8,
+      },
+      {
+        'title': 'Satu huruf besar',
+        'value': uppCase,
+      },
+      {
+        'title': 'Satu huruf kecil',
+        'value': lowerCase,
+      },
+      {
+        'title': 'Satu angka',
+        'value': numberValid,
+      },
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +120,29 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 20,
               ),
               Text(
+                'Your Name',
+                textAlign: TextAlign.left,
+                style: blackBold.copyWith(fontSize: 16),
+              ),
+              CustomInputText(
+                  controllerName: nameCtrl,
+                  placeholder: 'Your Name',
+                  enabled: true,
+                  onChangeText: () {},
+                  onTap: () {},
+                  onEditingComplete: (v) {
+                    print(v);
+                  }),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
                 'Email',
                 textAlign: TextAlign.left,
                 style: blackBold.copyWith(fontSize: 16),
               ),
               CustomInputText(
-                  controllerName: email,
+                  controllerName: emailCtrl,
                   placeholder: 'youremail@gmail.com',
                   enabled: true,
                   onChangeText: () {},
@@ -78,13 +154,50 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 20,
               ),
               Text(
+                'Gender',
+                textAlign: TextAlign.left,
+                style: blackBold.copyWith(fontSize: 16),
+              ),
+              Row(
+                children: [
+                  for (int i = 0; i < gender.length; i++)
+                    Expanded(
+                      child: RadioListTile(
+                          contentPadding: EdgeInsets.zero,
+                          value: '${gender[i]['title']}',
+                          groupValue: selectedValue,
+                          activeColor: primary500,
+                          selected: false,
+                          dense: true,
+                          title: Align(
+                              alignment: Alignment(-1.1, 0),
+                              child: Text(
+                                '${gender[i]['title']}',
+                                style: blackReg400.copyWith(fontSize: 16),
+                              )),
+                          onChanged: (val) {
+                            setState(() {
+                              // setSelectedlokasi(val);
+                              var value = {};
+                              radioTileOnChanged(val);
+                              print(val);
+                            });
+                            // statusselect = val![position]['id'];
+                          }),
+                    ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
                 'Password',
                 textAlign: TextAlign.left,
                 style: blackBold.copyWith(fontSize: 16),
               ),
               CustomInputText(
                 key: passwordfieldkey,
-                controllerName: password,
+                controllerName: passwordCtrl,
                 placeholder: 'Password',
                 enabled: true,
                 isObsecure: showPassword,
@@ -105,26 +218,49 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                 ),
                 onChangeText: (v) {
-                  print(v);
                   if (RegExp(".*[0-9].*").hasMatch(v ?? '')) {
                     setState(() {
-                      validationPassword = [
-                        {'title': 'angka'}
-                      ];
+                      numberValid = true;
+                      validationPasswords();
                     });
-                    print(validationPassword);
+                  } else {
+                    setState(() {
+                      numberValid = false;
+                      validationPasswords();
+                    });
                   }
                   if (RegExp('.*[a-z].*').hasMatch(v ?? '')) {
                     setState(() {
-                      if (validationPassword.isNotEmpty) {
-                        validationPassword.add({'title': 'huruf'});
-                      } else {
-                        validationPassword = [
-                          {'title': 'huruf'}
-                        ];
-                      }
+                      lowerCase = true;
+                      validationPasswords();
                     });
-                    print(validationPassword);
+                  } else {
+                    setState(() {
+                      lowerCase = false;
+                      validationPasswords();
+                    });
+                  }
+                  if (RegExp('.*[A-Z].*').hasMatch(v ?? '')) {
+                    setState(() {
+                      uppCase = true;
+                      validationPasswords();
+                    });
+                  } else {
+                    setState(() {
+                      uppCase = false;
+                      validationPasswords();
+                    });
+                  }
+                  if (RegExp(r'^.{8,}$').hasMatch(v ?? '')) {
+                    setState(() {
+                      length8 = true;
+                      validationPasswords();
+                    });
+                  } else {
+                    setState(() {
+                      length8 = false;
+                      validationPasswords();
+                    });
                   }
                 },
                 onTap: () {},
@@ -134,49 +270,88 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(
                 height: 20,
               ),
+              validationPassword.isEmpty
+                  ? Container()
+                  : GridView.builder(
+                      padding: EdgeInsets.zero,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 2,
+                        mainAxisSpacing: 0,
+                        childAspectRatio: 5,
+                      ),
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: validationPassword.length,
+                      itemBuilder: (context, index) {
+                        return Row(
+                          children: [
+                            Container(
+                              width: 16,
+                              height: 16,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: validationPassword[index]['value']
+                                      ? green200
+                                      : neutral200,
+                                  border: Border.all(
+                                      color: validationPassword[index]['value']
+                                          ? green400
+                                          : neutral400)),
+                              child: Icon(
+                                Icons.check,
+                                size: 10,
+                                color: validationPassword[index]['value']
+                                    ? green400
+                                    : neutral400,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              '${validationPassword[index]['title']}',
+                              style: blackReg400.copyWith(
+                                  fontSize: 14,
+                                  color: validationPassword[index]['value']
+                                      ? green600
+                                      : neutral500),
+                            )
+                          ],
+                        );
+                      }),
               SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 24,
-                        height: 24,
-                        child: Checkbox(
-                          value: valueCheck,
-                          activeColor: primary500,
-                          onChanged: ((value) {
-                            setState(() {
-                              valueCheck = value!;
-                            });
-                          }),
-                          materialTapTargetSize: MaterialTapTargetSize.padded,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        'Remember me',
-                        style: blackReg400.copyWith(fontSize: 16),
-                      )
-                    ],
-                  ),
-                  Text(
-                    'Forgot Password?',
-                    style: blackReg400.copyWith(
-                        fontSize: 16,
-                        decoration: TextDecoration.underline,
-                        decorationStyle: TextDecorationStyle.dashed,
-                        color: primary400),
-                  ),
-                ],
+              Text(
+                'Confirm Password',
+                textAlign: TextAlign.left,
+                style: blackBold.copyWith(fontSize: 16),
               ),
+              CustomInputText(
+                  controllerName: confirmPassCtrl,
+                  placeholder: 'Confirm Password',
+                  enabled: true,
+                  isObsecure: showPassword,
+                  suffixIcon: InkWell(
+                    onTap: () {
+                      setState(() {
+                        showPassword = !showPassword;
+                      });
+                    },
+                    child: showPassword
+                        ? Icon(
+                            Icons.visibility_off,
+                            color: primary500,
+                          )
+                        : Icon(
+                            Icons.remove_red_eye,
+                            color: primary500,
+                          ),
+                  ),
+                  onChangeText: () {},
+                  onTap: () {},
+                  onEditingComplete: () {}),
               SizedBox(
                 height: 20,
               ),
@@ -191,7 +366,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: primary500,
                       borderRadius: BorderRadius.circular(12)),
                   child: Text(
-                    'Login',
+                    'Register',
                     textAlign: TextAlign.center,
                     style:
                         blackBold.copyWith(color: Colors.white, fontSize: 16),
@@ -214,7 +389,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     width: 8,
                   ),
                   Text(
-                    'Belum punya akun?',
+                    'Sudah punya akun?',
                     style: blackReg400,
                   ),
                   SizedBox(
@@ -242,7 +417,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       border: Border.all(color: primary700),
                       borderRadius: BorderRadius.circular(12)),
                   child: Text(
-                    'Register',
+                    'Login',
                     textAlign: TextAlign.center,
                     style: blackBold.copyWith(color: primary700, fontSize: 16),
                   ),
