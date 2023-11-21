@@ -35,24 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    validationPassword = [
-      {
-        'title': 'Minimal 8 karakter',
-        'value': length8,
-      },
-      {
-        'title': 'Satu huruf besar',
-        'value': uppCase,
-      },
-      {
-        'title': 'Satu huruf kecil',
-        'value': lowerCase,
-      },
-      {
-        'title': 'Satu angka',
-        'value': numberValid,
-      },
-    ];
+    validationPasswords();
   }
 
   validationPasswords() {

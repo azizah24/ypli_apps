@@ -131,13 +131,20 @@ class _LoginPageState extends State<LoginPage> {
                       )
                     ],
                   ),
-                  Text(
-                    'Forgot Password?',
-                    style: blackReg400.copyWith(
-                        fontSize: 16,
-                        decoration: TextDecoration.underline,
-                        decorationStyle: TextDecorationStyle.dashed,
-                        color: primary400),
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).pushNamed(
+                        '/forgotPasswordPage',
+                      );
+                    },
+                    child: Text(
+                      'Forgot Password?',
+                      style: blackReg400.copyWith(
+                          fontSize: 16,
+                          decoration: TextDecoration.underline,
+                          decorationStyle: TextDecorationStyle.dashed,
+                          color: primary400),
+                    ),
                   ),
                 ],
               ),

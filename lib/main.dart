@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ypli_apps/auth/forgot_password.dart';
 import 'package:ypli_apps/auth/login_page.dart';
 import 'package:ypli_apps/auth/register_page.dart';
 
@@ -35,6 +36,8 @@ class MyApp extends StatelessWidget {
       case '/registerPage':
         return MaterialPageRoute(
             builder: (context) => RegisterPage());
+      case '/forgotPasswordPage':
+        return MaterialPageRoute(builder: (context) => ForgetPassword());
       default:
         return MaterialPageRoute(builder: (context) => const LoginPage());
     }
